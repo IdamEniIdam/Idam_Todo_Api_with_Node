@@ -30,5 +30,5 @@ db.collection('Users').find({name: 'Idam'}).toArray().then((docs) => {
     console.log(JSON.stringify(docs, undefined, 2));
 });
 
-    // db.sclose();
+    // db.close();
 });

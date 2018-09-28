@@ -7,6 +7,32 @@ MongoClient.connect('mongodb://localhost:27017/TodoApp', (err, db) => {
     }
     console.log('Connected to MongoDB server');
 
+    // db.collection('Todos').findOneAndUpdate({
+    //     _id: new ObjectID('5babfad958b67542082bc4e1')
+    // }, {
+    //     $set: {
+    //         completed: true
+    //     }
+    // }, {
+    //     returnOriginal: false
+    // }).then((result) => {
+    //     console.log(result);
+    // });
 
-    // db.sclose();
+
+    db.collection('Users').findOneAndUpdate({
+        _id: new ObjectID('5babfad958b67542082bc4e1')
+    }, {
+        $set: {
+            name: 'Idam'
+        },
+        $inc: {
+            age: 1
+        }
+    }, {
+        returnOriginal: false
+    }).then((result) => {
+        console.log(result);
+    });
+    // db.close();
 });
