@@ -125,16 +125,19 @@ user.save().then(() => {
 
 
 app.get('/users/me', authenticate, (req, res) => {
-    var token = req.header('x-auth');
+    res.send(req.user);
+});
 
-    User.findByToken(token).then((user) => {
-        if (!user) {
-           return Promise.reject(); 
-        }
+//POST /users/login {email, password}
+app.post('/users/login', (req, res) => {
+    var body = _.pick(req.body, ['email', 'password']);
 
-        res.send(user);
+    User.findByCredentials(body.email, body.password).then((user) => {
+        return user.generateAuthToken().then((token) =>{
+            res.header('x-auth', token).send(user);
+        })
     }).catch((e) => {
-        res.status(401).send();
+        res.status(400).send();
     });
 });
 
